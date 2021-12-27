@@ -3,6 +3,7 @@ pub mod blocking;
 
 #[cfg(feature = "i2c-nonblocking")]
 pub mod nonblocking;
+
 pub use nonblocking::*;
 
 pub mod config;
