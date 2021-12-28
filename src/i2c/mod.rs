@@ -4,6 +4,7 @@ pub mod blocking;
 #[cfg(feature = "i2c-nonblocking")]
 pub mod nonblocking;
 
+#[cfg(feature = "i2c-nonblocking")]
 pub use nonblocking::*;
 
 pub mod config;
@@ -87,8 +88,10 @@ pub struct I2c<I2C, SDA, SCL> {
     sda: SDA,
     scl: SCL,
     address: u16,
+    watchdog: u16,   // on each start set to 10, on each stop set to 0
     index: usize,
     length:usize,
+    errors:usize,   // global error counter, reset on read
     length_write_read:usize, // for a master write_read operation this remembers the size of the read operation
                              // for a slave device this must be 0
     data: [u8;256],  // during transfer the driver will be the owner of the buffer
